@@ -29,14 +29,7 @@ rcvar=${name}_enable
 : ${torr_server_user:="torr"}
 : ${torr_server_group:="torr"}
 
-echo "pidfile=/var/run/torr-server.pid"
 pidfile="/var/run/torr-server.pid"
-
-echo "command=/usr/sbin/daemon"
-command="/usr/sbin/daemon"
-
-echo "command_args=-f -p ${pidfile} /usr/local/lib/torr-server/TorrServer-freebsd-amd64"
-command_args="-f -p ${pidfile} /usr/local/lib/torr-server/TorrServer-freebsd-amd64"
 
 start_precmd=torr_server_precmd
 torr_server_precmd()
@@ -51,6 +44,8 @@ torr_server_postcmd()
     echo "torr_server_postcmd"
     rm -f ${pidfile}
 }
+
+command="/usr/sbin/daemon -f -p /var/run/torr-server.pid /usr/local/lib/torr-server/TorrServer-freebsd-amd64"
 
 load_rc_config ${name}
 run_rc_command "$1"
