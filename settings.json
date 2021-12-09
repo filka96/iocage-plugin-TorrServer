@@ -1,7 +1,7 @@
 {
   "name": "TorrServer",
   "release": "MatriX.109",
-  "artifact": "https://github.com/YouROK/TorrServer.git",
+  "artifact": "https://github.com/filka96/iocage-plugin-TorrServer.git",
   "packagesite": "https://github.com/YouROK/TorrServer",
   "official": false
 }
