@@ -21,7 +21,6 @@
 . /etc/rc.subr
 name=torr_server
 rcvar=${name}_enable
-load_rc_config ${name}
 
 [ -z "${torr_server_user}" ] && torr_server_user=torr
 [ -z "${torr_server_group}" ] && torr_server_group=torr
@@ -30,23 +29,28 @@ load_rc_config ${name}
 : ${torr_server_user:="torr"}
 : ${torr_server_group:="torr"}
 
-export LD_LIBRARY_PATH=/usr/local/lib/torr-server/lib
-export LIBVA_DRIVERS_PATH=/usr/local/lib/dri
-
+echo "pidfile=/var/run/torr-server.pid"
 pidfile="/var/run/torr-server.pid"
+
+echo "command=/usr/sbin/daemon"
 command="/usr/sbin/daemon"
+
+echo "command_args=-f -p ${pidfile} /usr/local/lib/torr-server/TorrServer-freebsd-amd64"
 command_args="-f -p ${pidfile} /usr/local/lib/torr-server/TorrServer-freebsd-amd64"
 
 start_precmd=torr_server_precmd
 torr_server_precmd()
 {
+    echo "torr_server_precmd"
     [ -f ${pidfile} ] || install -g ${torr_server_group} -o ${torr_server_user} -- /dev/null ${pidfile}
 }
 
 stop_postcmd=torr_server_postcmd
 torr_server_postcmd()
 {
+    echo "torr_server_postcmd"
     rm -f ${pidfile}
 }
 
+load_rc_config ${name}
 run_rc_command "$1"
