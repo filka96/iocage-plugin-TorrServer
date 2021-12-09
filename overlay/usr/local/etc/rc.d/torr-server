@@ -35,7 +35,7 @@ export LIBVA_DRIVERS_PATH=/usr/local/lib/dri
 
 pidfile="/var/run/torr-server.pid"
 command="/usr/sbin/daemon"
-command_args="-f -p ${pidfile} /usr/local/lib/torr-server/system/TorrServer-freebsd-amd64"
+command_args="-f -p ${pidfile} /usr/local/lib/torr-server/TorrServer-freebsd-amd64"
 
 start_precmd=torr_server_precmd
 torr_server_precmd()
