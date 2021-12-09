@@ -9,14 +9,6 @@
 #
 # torr_server_enable: Set to yes to enable the torr-server service.
 #			Default: no
-# torr_server_user: The user account used to run the torr-server daemon.
-#			This is optional, however do not specifically set this to an
-#			empty string as this will cause the daemon to run as root.
-#			Default: torr
-# torr_server_group: The group account used to run the torr-server daemon.
-#			This is optional, however do not specifically set this to an
-#			empty string as this will cause the daemon to run with group wheel.
-#			Default: torr
 
 . /etc/rc.subr
 name=torr_server
