@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: torr-server
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# torr_server_enable: Set to yes to enable the torr-server service.
+#			Default: no
+# torr_server_user: The user account used to run the torr-server daemon.
+#			This is optional, however do not specifically set this to an
+#			empty string as this will cause the daemon to run as root.
+#			Default: torr
+# torr_server_group: The group account used to run the torr-server daemon.
+#			This is optional, however do not specifically set this to an
+#			empty string as this will cause the daemon to run with group wheel.
+#			Default: torr
+
+. /etc/rc.subr
+name=torr_server
+rcvar=${name}_enable
+load_rc_config ${name}
+
+[ -z "${torr_server_user}" ] && torr_server_user=torr
+[ -z "${torr_server_group}" ] && torr_server_group=torr
+
+: ${torr_server_enable:="no"}
+: ${torr_server_user:="torr"}
+: ${torr_server_group:="torr"}
+
+export LD_LIBRARY_PATH=/usr/local/lib/torr-server/lib
+export LIBVA_DRIVERS_PATH=/usr/local/lib/dri
+
+pidfile="/var/run/torr-server.pid"
+command="/usr/sbin/daemon"
+command_args="-f -p ${pidfile} /usr/local/lib/torr-server/system/TorrServer-freebsd-amd64"
+
+start_precmd=torr_server_precmd
+torr_server_precmd()
+{
+    [ -f ${pidfile} ] || install -g ${torr_server_group} -o ${torr_server_user} -- /dev/null ${pidfile}
+}
+
+stop_postcmd=torr_server_postcmd
+torr_server_postcmd()
+{
+    rm -f ${pidfile}
+}
+
+run_rc_command "$1"
