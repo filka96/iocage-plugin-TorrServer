@@ -1,5 +1,8 @@
 #!/bin/sh
 
+ls -la /usr/local/etc/rc.d/
+ls -la /usr/local/lib/torr-server
+
 export GODEBUG=madvdontneed=1
 
 # Enable the service
