@@ -1,10 +1,10 @@
 #!/bin/sh
 
-ls -la /usr/local/etc/rc.d/
-ls -la /usr/local/lib/torr-server
-
 chmod +x /usr/local/etc/rc.d/torr-server
 chmod +x /usr/local/lib/torr-server/TorrServer-freebsd-amd64
+
+ls -la /usr/local/etc/rc.d/
+ls -la /usr/local/lib/torr-server
 
 export GODEBUG=madvdontneed=1
 
