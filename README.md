@@ -1,7 +1,7 @@
 # iocage-plugin-TorrServer
 
-###plugin page
+### plugin page
 https://github.com/filka96/iocage-plugin-TorrServer
 
-###TorrServer page
+### TorrServer page
 https://github.com/YouROK/TorrServer
